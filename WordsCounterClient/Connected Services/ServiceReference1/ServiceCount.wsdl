@@ -39,15 +39,13 @@
   <wsdl:message name="IServiceCount_CountWords_InputMessage">
     <wsdl:part name="parameters" element="tns:CountWords" />
   </wsdl:message>
-  <wsdl:message name="IServiceCount_CountWordsCallback_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:CountWordsCallback" />
+  <wsdl:message name="IServiceCount_CountWords_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CountWordsResponse" />
   </wsdl:message>
   <wsdl:portType name="IServiceCount">
     <wsdl:operation name="CountWords">
       <wsdl:input wsaw:Action="http://tempuri.org/IServiceCount/CountWords" message="tns:IServiceCount_CountWords_InputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="CountWordsCallback">
-      <wsdl:output wsaw:Action="http://tempuri.org/IServiceCount/CountWordsCallback" message="tns:IServiceCount_CountWordsCallback_OutputCallbackMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceCount/CountWordsResponse" message="tns:IServiceCount_CountWords_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServiceCount" type="tns:IServiceCount">
@@ -58,9 +56,6 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
-    </wsdl:operation>
-    <wsdl:operation name="CountWordsCallback">
-      <soap12:operation soapAction="http://tempuri.org/IServiceCount/CountWordsCallback" style="document" />
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
@@ -72,7 +67,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8734/</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>seregavspb\Sergey</Upn>
+          <Upn>DESKTOP-MMPVVCQ\Phenix</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

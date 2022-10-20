@@ -3,11 +3,11 @@ using System.ServiceModel;
 
 namespace WordsCounterService
   {
-  [ServiceContract(CallbackContract = typeof(IServiceCountCallback))]
+  [ServiceContract/*(CallbackContract = typeof(IServiceCountCallback))*/]
   public interface IServiceCount
     {
-    [OperationContract(IsOneWay = true)]
-    void CountWords(string fullText);
+    [OperationContract]
+        Dictionary<string, int> CountWords(string fullText);
     }
   public interface IServiceCountCallback
     {

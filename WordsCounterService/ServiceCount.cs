@@ -9,7 +9,7 @@ namespace WordsCounterService
 
   public class ServiceCount : IServiceCount
     {
-    public void CountWords(string fullText)
+    public Dictionary<string, int> CountWords(string fullText)
       {
 
       ServerUser user = new ServerUser() {
@@ -17,8 +17,8 @@ namespace WordsCounterService
         };
 
       Dictionary<string, int> output = WordsCounterLib.WordsCounter.MTCount(fullText);
-
-      user.operationContext.GetCallbackChannel<IServiceCountCallback>().CountWordsCallback(output);
+            return output;
+     // user.operationContext.GetCallbackChannel<IServiceCountCallback>().CountWordsCallback(output);
 
       }
     }

@@ -2,28 +2,26 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using WordsCounterClient.ServiceCount;
+using System.Threading.Tasks;
 
 namespace WordsCounterClient
   {
-  public class ProgramServiceCount : IServiceCountCallback
+  public class ProgramServiceCount 
     {
     static void Main()
       {
-      try
+        try
         {
-        Console.WriteLine("Укажите путь до файла с текстом и нажмите Enter");
-        string inputPath = Console.ReadLine();
-        if (inputPath == null) throw new Exception("Неверный путь");
-        string fullText = File.ReadAllText(inputPath);
+            Console.WriteLine("Укажите путь до файла с текстом и нажмите Enter");
+            string inputPath = Console.ReadLine();
+            if (inputPath == null) throw new Exception("Неверный путь");
+            string fullText = File.ReadAllText(inputPath);
 
-        ServiceCountClient client = new ServiceCountClient(
-        new System.ServiceModel.InstanceContext(new ProgramServiceCount())
-        );
-
-        client.CountWords(fullText);
-        Thread.Sleep(10000); // Для того чтобы главный поток дожидался Callback, а не сразу заканчивал свою работу
-
+            using (var client = new ServiceReference1.ServiceCountClient())
+            {
+                Dictionary<string, int> a = client.CountWords(fullText);
+                Write(a);
+            };
         }
       catch (Exception ex)
         {
@@ -31,7 +29,7 @@ namespace WordsCounterClient
         }
       }
 
-    public void CountWordsCallback(Dictionary<string, int> output)
+    private static async void Write(Dictionary<string, int> output)
       {
       try
         {
@@ -46,7 +44,7 @@ namespace WordsCounterClient
 
         foreach (KeyValuePair<string, int> keyValuePair in output)
           {
-          sw.WriteLine(keyValuePair.Key + " " + keyValuePair.Value.ToString());
+          await sw.WriteLineAsync(keyValuePair.Key + " " + keyValuePair.Value.ToString());
           }
         sw.Close();
 
